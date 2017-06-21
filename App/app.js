@@ -1,42 +1,52 @@
 import React, { Component } from 'react';
 import {
     View,
+    Text,
     FlatList,
-    StyleSheet
+    StyleSheet,
+    ActivityIndicator
 } from 'react-native';
 
 export default class App extends Component {
-   constructor(props){
+    constructor(props) {
         super()
         this.state = {
+            isLoading: false
             MarsImages: []
         }
     }
     componentDidMount() {
-        let url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=' + '999' + 'MAST' + '&api_key=' + 'a1vxn94JAg11UtnooLxGQKwbSYpk85ml24xtqYAB'
-        fetch(url)
+        return fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=' + '999' + 'MAST' + '&api_key=' + 'a1vxn94JAg11UtnooLxGQKwbSYpk85ml24xtqYAB')
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson)
-                if (responseJson) {
-                    console.log(responseJson)
-                    this.setState({MarsImages: responseJson.items})
-                    // store.raw = responseJson.raw
-                }
+                let ds = new Flatlist.MarsImages({ rowHasChanged: (r1, r2) => r1 !== r2 });
+                this.setState({
+                    isLoading: false,
+                    MarsImages: ds.cloneWithRows(responseJson.photos),
+                }, function () {
+                    // do something with new state
+                });
             })
             .catch((error) => {
-                console.error(error)
+                console.error(error);
             });
-// this is a prommis, learn it. fetch is also explained in the react native doc.
     }
 
     render() {
+        if (this.state.isLoading) {
+            return (
+                <View style={{ flex: 1, paddingTop: 20 }}>
+                    <ActivityIndicator />
+                </View>
+            );
+        }
+
         return (
-            <View style={{flex:1, marginTop:20}}>
+            <View style={{ flex: 1, marginTop: 20 }}>
                 <FlatList
                     keyExtractor={item => item.guid}
                     data={this.state.MarsImages}
-                    renderItem={({item}) => <MarsImage data={item} />}
+                    renderItem={({ item }) => <MarsImage data={item} />}
                 />
             </View>
         );
