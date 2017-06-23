@@ -16,13 +16,14 @@ import App from './App/app'
 export default class newProject extends Component {
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <App />
       </View>
     );
   }
 }
 
+/*
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -47,3 +48,4 @@ const styles = StyleSheet.create({
 AppRegistry.registerComponent('newProject', () => newProject);
 
 // style={styles.welcome}
+*/

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import {
     View,
     FlatList,
-    StyleSheet
+    StyleSheet,
+    Text
 } from 'react-native';
 
 export default class App extends Component {
-   constructor(props){
+    constructor(props) {
         super()
         this.state = {
             MarsImages: []
@@ -20,42 +21,31 @@ export default class App extends Component {
                 console.log(responseJson)
                 if (responseJson) {
                     console.log(responseJson)
-                    this.setState({MarsImages: responseJson.photos})
+                    this.setState({ MarsImages: responseJson.photos })
                     // store.raw = responseJson.raw
                 }
             })
             .catch((error) => {
                 console.error(error)
             });
-// this is a Promise, learn it. Fetch is also explained in the react native doc.
+        // this is a Promise, learn it. Fetch is also explained in the react native doc.
     }
 
     render() {
         return (
-            <View style={{flex:1, marginTop:20}}>
+            <View style={{ flex: 1, marginTop: 20 }}>
                 <FlatList
-                    keyExtractor={item => item.photos.Object.id}
-                    data={this.state.MarsImages.photos}
-                    renderItem={({Object}) => <MarsImage data={photos.Object} />}
+                    keyExtractor={item => item.id}
+                    data={this.state.MarsImages}
+                    renderItem={this.renderItem.bind(this)}
                 />
             </View>
         );
     }
+
+    renderItem(item) {
+        return (
+            <Text>{item.item.id}</Text>
+        )
+    }
 }
-
-
-
-/*+
-
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>{rowData.title}, {rowData.releaseYear}</Text>}
-        />
-
-
-
-                <FlatList
-                    keyExtractor={item => item.guid}
-                    data={this.state.MarsImages}
-                    renderItem={({ photos }) => <MarsImage data={photos} />}
-                />
