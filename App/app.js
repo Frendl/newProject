@@ -17,7 +17,7 @@ export default class App extends Component {
     }
     componentDidMount() {
         //let url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=' + '999' + 'MAST' + '&api_key=' + 'a1vxn94JAg11UtnooLxGQKwbSYpk85ml24xtqYAB'
-        fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=' + '999' + 'MAST' + '&api_key=' + 'a1vxn94JAg11UtnooLxGQKwbSYpk85ml24xtqYAB')
+        fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=' + '103' + 'MAST' + '&api_key=' + 'a1vxn94JAg11UtnooLxGQKwbSYpk85ml24xtqYAB')
             .then((response) => response.json())
             .then((responseJson) => {
                 console.log(responseJson)
@@ -47,7 +47,7 @@ export default class App extends Component {
 
     renderItem(item) {
         return (
-            <Item />
+            <Item item={item}/>
         )
     }
 }

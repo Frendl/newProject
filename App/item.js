@@ -6,17 +6,26 @@ import {
     Text
 } from 'react-native';
 
-export default class Item extends Component{
+export default class Item extends Component {
     constructor(props) {
         super(props)
         this.state = {
         };
     }
 
-    render(item) {
+    render() {
+        let uri = this.props.item.item.img_src
+        uri = uri.replace("http", "https")
+        return (
             <View style={{ flex: 1, height: 100 }}>
-                <Text> { item.item.id } </Text>
-                <Text> { item.item.id } </Text>
+                <Image
+                    style={{ width: 180, height: 180, backgroundColor: 'black' }}
+                    resizeMode={Image.resizeMode.contain}
+                    source={{ uri: uri }}
+                />
+                <Text> {this.props.item.item.img_src} </Text>
+                <Text> {this.props.item.item.id} </Text>
             </View>
+        );
     }
 }
