@@ -3,8 +3,10 @@ import {
     View,
     FlatList,
     StyleSheet,
-    Text
+    Text,
+    Image
 } from 'react-native';
+import Item from './item.js'
 
 export default class App extends Component {
     constructor(props) {
@@ -45,7 +47,8 @@ export default class App extends Component {
 
     renderItem(item) {
         return (
-            <Text>{item.item.id}</Text>
+            <Item />
         )
     }
 }
+
